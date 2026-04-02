@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>VENOM | Digital Creator & Full Stack Developer</title>
+    <meta name="description" content="VENOM - Digital Creator, AirBeats developer & Full Stack Developer. Expert in Web Development, Android Apps, and UI/UX Design.">
+    <link rel="shortcut icon" type="image/png" href="https://avatars.githubusercontent.com/u/241423835?s=64">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#A855F7',
+                        secondary: '#22C55E',
+                        dark: '#0A0A0A',
+                        card: '#121212',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(1deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* base reset + smoothness */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body { 
+            background-color: #0A0A0A; 
+            color: #FFFFFF; 
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass { 
+            background: rgba(18, 18, 18, 0.85); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+        }
+        .nav-link { position: relative; transition: all 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #A855F7; transition: width 0.3s; }
+        .nav-link:hover::after { width: 100%; }
+        .section-title { 
+            font-size: 2rem; 
+            font-weight: 700; 
+            margin-bottom: 1.5rem; 
+            color: #A855F7;
+            letter-spacing: -0.02em;
+        }
+        @media (min-width: 768px) {
+            .section-title { font-size: 2.5rem; margin-bottom: 2rem; }
+        }
+        .tilt-img { transform: rotate(-3deg); transition: transform 0.3s; }
+        .tilt-img:hover { transform: rotate(0deg); }
+        .card-hover { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .card-hover:hover { 
+            transform: translateY(-8px) scale(1.01); 
+            border-color: #A855F7; 
+            box-shadow: 0 20px 30px -12px rgba(168, 85, 247, 0.25);
+        }
+        
+        /* Text Gradient Animation */
+        .animate-text {
+            background: linear-gradient(90deg, #A855F7, #22C55E, #4a90e2, #A855F7);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: colorFlow 3s linear infinite;
+        }
+        @keyframes colorFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* ===== SCROLL REVEAL ANIMATION (for cards, sections) ===== */
+        .scroll-reveal {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
+        }
+        
+        /* Different entrance directions for scroll reveal */
+        .scroll-reveal.from-bottom {
+            transform: translateY(50px);
+        }
+        .scroll-reveal.from-left {
+            transform: translateX(-50px);
+        }
+        .scroll-reveal.from-right {
+            transform: translateX(50px);
+        }
+        .scroll-reveal.from-top {
+            transform: translateY(-50px);
+        }
+        .scroll-reveal.scale-in {
+            transform: scale(0.95);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Enhanced hero image */
+        .hero-cover-image {
+            width: 100%;
+            max-width: 550px;
+            height: auto;
+            border: none;
+            border-radius: 0;
+            mask-image: radial-gradient(circle, black 45%, transparent 92%);
+            -webkit-mask-image: radial-gradient(circle, black 45%, transparent 92%);
+            filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.2));
+            transition: all 0.5s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        @media (min-width: 1024px) {
+            .hero-cover-image {
+                max-width: 620px;
+                mask-image: radial-gradient(circle, black 40%, transparent 94%);
+                -webkit-mask-image: radial-gradient(circle, black 40%, transparent 94%);
+            }
+        }
+        .hero-cover-image:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0 0 35px rgba(168, 85, 247, 0.35));
+        }
+
+        /* custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #A855F7; border-radius: 8px; }
+        
+        /* mobile menu improvements */
+        @media (max-width: 767px) {
+            .glass {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            /* Fix for contact cards on mobile - title visible on right side of icon */
+            .contact-card-content {
+                flex: 1;
+                width: 100%;
+            }
+            .contact-card-title {
+                font-size: 1rem;
+                font-weight: 700;
+            }
+        }
+
+        a, button {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        input, textarea {
+            font-size: 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .stats-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        /* ===== ULTRA SMOOTH PAGE LOAD TEXT ANIMATIONS - NO BLUR ===== */
+        
+        /* Main heading - slides down from top */
+        .main-heading {
+            opacity: 0;
+            transform: translateY(-45px);
+            animation: smoothFromTop 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        @keyframes smoothFromTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-45px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* VENOM name - slides from right */
+        .venom-name {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(60px);
+            animation: smoothFromRight 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.2s;
+        }
+        
+        @keyframes smoothFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Description - slides from left */
+        .hero-description {
+            opacity: 0;
+            transform: translateX(-55px);
+            animation: smoothFromLeft 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.35s;
+        }
+        
+        @keyframes smoothFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-55px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* CTA Button - slides from bottom */
+        .cta-button {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: smoothFromBottom 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.55s;
+        }
+        
+        @keyframes smoothFromBottom {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Social Icons - different corners */
+        .social-1 {
+            opacity: 0;
+            transform: translate(-30px, -30px);
+            animation: smoothFromTopLeft 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.7s;
+        }
+        
+        .social-2 {
+            opacity: 0;
+            transform: translateY(-35px);
+            animation: smoothFromTop 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.8s;
+        }
+        
+        .social-3 {
+            opacity: 0;
+            transform: translate(30px, -30px);
+            animation: smoothFromTopRight 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.9s;
+        }
+        
+        @keyframes smoothFromTopLeft {
+            0% {
+                opacity: 0;
+                transform: translate(-30px, -30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+        }
+        
+        @keyframes smoothFromTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-35px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes smoothFromTopRight {
+            0% {
+                opacity: 0;
+                transform: translate(30px, -30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+        }
+        
+        /* Nav items animation */
+        .nav-item {
+            opacity: 0;
+            transform: translateY(-12px);
+            animation: smoothFromTop 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        /* Logo animation */
+        .logo-text {
+            opacity: 0;
+            transform: translateX(-15px);
+            animation: smoothFromLeft 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        /* Ensure no blur on any element */
+        * {
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Hide contact details (email, telegram username, whatsapp number) */
+        .hidden-contact-detail {
+            display: none;
+        }
+        
+        /* Contact card styles - title always visible on right side of icon */
+        .contact-card {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 640px) {
+            .contact-card {
+                gap: 0.75rem;
+            }
+        }
+        
+        .contact-card .contact-info {
+            flex: 1;
+        }
+        
+        .contact-card .contact-title {
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        /* ===== ABOUT SECTION IMAGE: FULLY VISIBLE, NO BORDER, NO GLOW, NO CROP ===== */
+        .about-img-wrapper {
+            /* Remove all borders, shadows, glows, masks that could crop or hide image */
+            background: transparent;
+            box-shadow: none;
+            filter: none;
+            mask-image: none;
+            -webkit-mask-image: none;
+            border: none;
+            outline: none;
+        }
+        
+        .about-img {
+            /* Image fully visible with no rotation crop, no borders, no glows */
+            transform: none !important; /* Remove tilt effect that could cause visual clipping */
+            border: none !important;
+            box-shadow: none !important;
+            filter: none !important;
+            mask-image: none !important;
+            -webkit-mask-image: none !important;
+            border-radius: 0; /* Square/rectangle full visibility, no rounded crop */
+            background: transparent;
+            object-fit: contain; /* Ensure full image visible without cropping */
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Remove any decorative pseudo-elements or glow layers around the image */
+        .about-img-wrapper::before,
+        .about-img-wrapper::after {
+            display: none !important;
+        }
+        
+        /* Ensure parent container doesn't add any cropping masks */
+        .about-img-container {
+            background: transparent;
+            box-shadow: none;
+            filter: none;
+            overflow: visible; /* No hidden overflow that could crop */
+        }
+        
+        /* Remove the gradient blur backdrop that was causing glow */
+        .about-img-container .blur-backdrop {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Header / navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 glass py-3 sm:py-4 px-4 sm:px-6 md:px-10 lg:px-12 flex justify-between items-center shadow-sm">
+        <div class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tighter text-white animate-text logo-text">VENOM</div>
+        <nav class="hidden md:flex space-x-6 lg:space-x-8">
+            <a href="#about" class="nav-link text-gray-300 hover:text-white text-sm lg:text-base transition nav-item" style="animation-delay: 0.05s">About</a>
+            <a href="#services" class="nav-link text-gray-300 hover:text-white text-sm lg:text-base transition nav-item" style="animation-delay: 0.1s">Services</a>
+            <a href="#projects" class="nav-link text-gray-300 hover:text-white text-sm lg:text-base transition nav-item" style="animation-delay: 0.15s">Projects</a>
+            <a href="#contact" class="nav-link text-gray-300 hover:text-white text-sm lg:text-base transition nav-item" style="animation-delay: 0.2s">Contact</a>
+        </nav>
+        <a href="#contact" class="bg-primary hover:bg-primary/80 text-white px-4 sm:px-5 py-1.5 sm:py-2 rounded-full font-medium transition-all flex items-center gap-2 hover:scale-105 active:scale-95 text-sm sm:text-base shadow-md cta-button" style="animation-delay: 0.55s;">
+            Contact <i class="fas fa-external-link-alt text-xs"></i>
+        </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex flex-col lg:flex-row justify-center items-center px-5 sm:px-8 md:px-16 lg:px-24 pt-24 pb-12 relative overflow-hidden">
+        <div class="z-10 text-center lg:text-left lg:w-1/2 w-full">
+            <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-3 sm:mb-4 tracking-tight leading-[1.2] main-heading">
+                Hi, I'm <span class="animate-text venom-name">VENOM</span>
+            </h1>
+            <p class="text-base sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed hero-description">Digital Creator & Full Stack Developer building secure, scalable, and visually engaging digital experiences.</p>
+            <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <a href="#contact" class="bg-primary hover:bg-primary/80 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] text-sm sm:text-base cta-button" style="animation-delay: 0.55s;">Let's Connect</a>
+                <div class="flex gap-5 sm:gap-6 items-center">
+                    <a href="https://github.com/drkvenom786" target="_blank" class="text-2xl sm:text-3xl text-gray-400 hover:text-white transition-all hover:scale-125 social-1"><i class="fab fa-github"></i></a>
+                    <a href="https://t.me/Scarface_786" target="_blank" class="text-2xl sm:text-3xl text-gray-400 hover:text-white transition-all hover:scale-125 social-2"><i class="fab fa-telegram"></i></a>
+                    <a href="https://wa.me/9779706372354" target="_blank" class="text-2xl sm:text-3xl text-gray-400 hover:text-white transition-all hover:scale-125 social-3"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cover Image -->
+        <div class="lg:w-1/2 flex justify-center lg:justify-end mt-10 lg:mt-0 relative z-0 w-full max-w-md sm:max-w-lg lg:max-w-none">
+            <img src="https://raw.githubusercontent.com/drkvenom786/Portfolio/refs/heads/main/image.png" alt="Cover Image" class="hero-cover-image animate-float" loading="eager">
+        </div>
+        
+        <!-- decorative blobs -->
+        <div class="absolute top-[15%] left-[5%] w-48 h-48 sm:w-64 sm:h-64 bg-primary/10 blur-[100px] rounded-full animate-pulse-slow"></div>
+        <div class="absolute bottom-[15%] right-[5%] w-48 h-48 sm:w-64 sm:h-64 bg-secondary/10 blur-[100px] rounded-full animate-pulse-slow"></div>
+    </section>
+
+    <!-- About Section - Image fully visible, no borders, no glow, no crop -->
+    <section id="about" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24 bg-black/50">
+        <h2 class="section-title text-center scroll-reveal from-top">ABOUT ME</h2>
+        <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+            <div class="flex justify-center order-1 md:order-none scroll-reveal from-left about-img-container">
+                <div class="relative group about-img-wrapper">
+                    <!-- REMOVED: blur backdrop, glow div, border, shadow, mask, tilt effect -->
+                    <img src="/image2.jpg" alt="VENOM" class="about-img w-auto h-auto max-w-full max-h-[500px] object-contain" 
+                         style="width: auto; height: auto; max-width: 100%; max-height: 500px; display: block; margin: 0 auto;">
+                </div>
+            </div>
+            <div class="order-2">
+                <h3 class="text-2xl sm:text-3xl font-bold mb-3 text-primary scroll-reveal from-right">I am <span class="text-white">VENOM</span></h3>
+                <p class="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 scroll-reveal from-right" style="transition-delay: 0.1s">
+                    Real name Gowher Bashir, alias VENOM, a digital creator and full-stack Android developer from Srinagar, Kashmir. I specialize in building secure, scalable, and visually engaging applications like AirBeats under DARK × VENOM.
+                </p>
+                <div class="stats-grid">
+                    <div class="bg-card p-4 sm:p-5 md:p-6 rounded-2xl border border-white/5 text-center card-hover scroll-reveal from-bottom" style="transition-delay: 0.1s">
+                        <i class="fab fa-android text-secondary text-2xl sm:text-3xl mb-2 sm:mb-3"></i>
+                        <h4 class="text-xl sm:text-2xl font-bold">1+</h4>
+                        <p class="text-gray-500 text-xs sm:text-sm">Play Store Apps</p>
+                    </div>
+                    <div class="bg-card p-4 sm:p-5 md:p-6 rounded-2xl border border-white/5 text-center card-hover scroll-reveal from-bottom" style="transition-delay: 0.2s">
+                        <i class="fas fa-globe text-primary text-2xl sm:text-3xl mb-2 sm:mb-3"></i>
+                        <h4 class="text-xl sm:text-2xl font-bold">5+</h4>
+                        <p class="text-gray-500 text-xs sm:text-sm">Live Projects</p>
+                    </div>
+                    <div class="bg-card p-4 sm:p-5 md:p-6 rounded-2xl border border-white/5 text-center card-hover scroll-reveal from-bottom" style="transition-delay: 0.3s">
+                        <i class="fas fa-users text-blue-500 text-2xl sm:text-3xl mb-2 sm:mb-3"></i>
+                        <h4 class="text-xl sm:text-2xl font-bold">100+</h4>
+                        <p class="text-gray-500 text-xs sm:text-sm">Users Reached</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24">
+        <div class="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 class="section-title scroll-reveal from-left">Services</h2>
+            <p class="text-gray-400 text-sm sm:text-base scroll-reveal from-right" style="transition-delay: 0.1s">What I can build for you</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <!-- Web Dev -->
+            <div class="bg-card p-6 sm:p-8 rounded-3xl border border-white/10 card-hover flex flex-col items-center text-center scroll-reveal from-bottom" style="transition-delay: 0.1s">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+                    <i class="fas fa-code text-blue-500 text-2xl sm:text-3xl"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold mb-3">Web Development</h3>
+                <p class="text-gray-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">I build full-stack web applications and services using modern technologies like React, Node.js, and Tailwind CSS.</p>
+                <a href="#contact" class="mt-auto bg-blue-500/10 hover:bg-blue-500 text-blue-500 hover:text-white px-5 sm:px-6 py-2 rounded-full transition-all text-sm sm:text-base">Learn More</a>
+            </div>
+            <!-- Android Dev -->
+            <div class="bg-card p-6 sm:p-8 rounded-3xl border border-white/10 card-hover flex flex-col items-center text-center scroll-reveal from-bottom" style="transition-delay: 0.25s">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+                    <i class="fab fa-android text-secondary text-2xl sm:text-3xl"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold mb-3">Android Development</h3>
+                <p class="text-gray-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">I design and develop Android applications. From utility tools to complex media players like AirBeats.</p>
+                <a href="https://github.com/drkvenom786" target="_blank" class="mt-auto bg-secondary/10 hover:bg-secondary text-secondary hover:text-white px-5 sm:px-6 py-2 rounded-full transition-all text-sm sm:text-base">View Projects</a>
+            </div>
+            <!-- UI/UX -->
+            <div class="bg-card p-6 sm:p-8 rounded-3xl border border-white/10 card-hover flex flex-col items-center text-center scroll-reveal from-bottom" style="transition-delay: 0.4s">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
+                    <i class="fas fa-paint-brush text-primary text-2xl sm:text-3xl"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold mb-3">UI/UX Design</h3>
+                <p class="text-gray-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">Creating visually engaging and user-friendly digital experiences that prioritize usability and aesthetics.</p>
+                <a href="#contact" class="mt-auto bg-primary/10 hover:bg-primary text-primary hover:text-white px-5 sm:px-6 py-2 rounded-full transition-all text-sm sm:text-base">Get Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24 bg-black/50">
+        <div class="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 class="section-title scroll-reveal from-top">Projects</h2>
+            <p class="text-gray-400 text-sm sm:text-base scroll-reveal from-bottom" style="transition-delay: 0.1s">A showcase of apps and websites I've built</p>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <!-- Project 1 - AirBeats with updated icon and link -->
+            <div class="bg-card rounded-3xl overflow-hidden border border-white/10 card-hover h-full flex flex-col scroll-reveal scale-in" style="transition-delay: 0.1s">
+                <div class="p-6 sm:p-8 flex flex-col items-center text-center flex-1">
+                    <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" alt="AirBeats" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 sm:mb-6 border-2 border-secondary p-1 hover:rotate-12 transition-all">
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">AirBeats – Music Player</h3>
+                    <div class="flex text-yellow-500 mb-4 gap-1 text-xs sm:text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-500 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed flex-1">A powerful music player with a clean UI, high-quality audio experience, and advanced playback features for Android users.</p>
+                    <a href="https://airbeats.stormx.pw" target="_blank" class="w-full bg-primary hover:bg-primary/80 text-white py-2.5 sm:py-3 rounded-2xl transition-all flex items-center justify-center gap-2 hover:gap-4 text-sm sm:text-base">
+                        View Project <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Project 2 - AirStream (replaced VENOM Hub) -->
+            <div class="bg-card rounded-3xl overflow-hidden border border-white/10 card-hover h-full flex flex-col scroll-reveal scale-in" style="transition-delay: 0.25s">
+                <div class="p-6 sm:p-8 flex flex-col items-center text-center flex-1">
+                    <img src="http://airstream.stormx.pw/icon.png" alt="AirStream" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 sm:mb-6 border-2 border-primary p-1 hover:rotate-12 transition-all">
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">AirStream – Ad-Free YouTube</h3>
+                    <div class="flex text-yellow-500 mb-4 gap-1 text-xs sm:text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-500 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed flex-1">Watch YouTube videos ad-free with AirStream no interruptions, just pure streaming.</p>
+                    <a href="https://airstream.stormx.pw" target="_blank" class="w-full bg-primary hover:bg-primary/80 text-white py-2.5 sm:py-3 rounded-2xl transition-all flex items-center justify-center gap-2 hover:gap-4 text-sm sm:text-base">
+                        View Project <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Project 3 - SecureConnect -->
+            
+        </div>
+    </section>
+
+    <!-- Contact Section - with WhatsApp added and contact details hidden, mobile view title visible on right -->
+    <section id="contact" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24">
+        <div class="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 class="section-title scroll-reveal from-top">Get In Touch</h2>
+            <p class="text-gray-400 text-sm sm:text-base scroll-reveal from-bottom" style="transition-delay: 0.1s">Reach out through any of these channels</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
+            <div class="space-y-5 sm:space-y-6">
+                <!-- Email -->
+                <div class="bg-card p-5 sm:p-6 md:p-8 rounded-3xl border border-white/10 card-hover scroll-reveal from-left contact-card" style="transition-delay: 0.15s; display: flex; flex-direction: row; align-items: center; gap: 1rem;">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-2xl flex items-center justify-center shrink-0">
+                        <i class="fas fa-envelope text-primary text-xl sm:text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-base sm:text-lg font-bold contact-title">Email</h4>
+                        <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">cybershield47@gmail.com</p>
+                        <a href="mailto:cybershield47@gmail.com" class="inline-block bg-primary/10 hover:bg-primary text-primary hover:text-white px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm">Send Email</a>
+                    </div>
+                </div>
+                <!-- Telegram -->
+                <div class="bg-card p-5 sm:p-6 md:p-8 rounded-3xl border border-white/10 card-hover scroll-reveal from-left contact-card" style="transition-delay: 0.3s; display: flex; flex-direction: row; align-items: center; gap: 1rem;">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center shrink-0">
+                        <i class="fab fa-telegram text-blue-500 text-xl sm:text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-base sm:text-lg font-bold contact-title">Telegram</h4>
+                        <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">@Scarface_786</p>
+                        <a href="https://t.me/Scarface_786" target="_blank" class="inline-block bg-blue-500/10 hover:bg-blue-500 text-blue-500 hover:text-white px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm">Message Me</a>
+                    </div>
+                </div>
+                <!-- WhatsApp -->
+                <div class="bg-card p-5 sm:p-6 md:p-8 rounded-3xl border border-white/10 card-hover scroll-reveal from-left contact-card" style="transition-delay: 0.45s; display: flex; flex-direction: row; align-items: center; gap: 1rem;">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-green-500/10 rounded-2xl flex items-center justify-center shrink-0">
+                        <i class="fab fa-whatsapp text-green-500 text-xl sm:text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-base sm:text-lg font-bold contact-title">WhatsApp</h4>
+                        <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">+977 9706372354</p>
+                        <a href="https://wa.me/9779706372354" target="_blank" class="inline-block bg-green-500/10 hover:bg-green-500 text-green-500 hover:text-white px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm">Chat on WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Form -->
+            <div class="bg-card p-6 sm:p-8 md:p-10 lg:p-12 rounded-3xl border border-white/10 scroll-reveal from-right" style="transition-delay: 0.2s">
+                <form class="space-y-5 sm:space-y-6">
+                    <input type="text" placeholder="Your Full Name" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-3 sm:py-4 focus:border-primary outline-none transition-all text-sm sm:text-base">
+                    <input type="email" placeholder="Your Email" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-3 sm:py-4 focus:border-primary outline-none transition-all text-sm sm:text-base">
+                    <textarea placeholder="Your Message" rows="4" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-3 sm:py-4 focus:border-primary outline-none transition-all text-sm sm:text-base"></textarea>
+                    <button type="submit" class="w-full bg-primary hover:bg-primary/80 text-white py-3 sm:py-4 rounded-2xl font-bold transition-all text-sm sm:text-base">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 sm:py-12 px-5 sm:px-8 md:px-16 lg:px-24 border-t border-white/10 text-center">
+        <p class="text-gray-600 text-xs sm:text-sm">© 2026 VENOM. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Scroll Reveal Observer - triggers when elements come into view
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                } else {
+                    // Remove class when scrolling up to animate again (reverse animation)
+                    entry.target.classList.remove('revealed');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        // Observe all elements with scroll-reveal class
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+        
+        // Fix horizontal overflow
+        const fixOverflow = () => {
+            document.documentElement.style.overflowX = 'hidden';
+            document.body.style.overflowX = 'hidden';
+        };
+        window.addEventListener('load', fixOverflow);
+        window.addEventListener('resize', fixOverflow);
+        fixOverflow();
+        
+        // Force a reflow to ensure animations start correctly
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 100);
+    </script>
+</body>
+</html>
