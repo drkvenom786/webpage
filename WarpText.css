@@ -1,0 +1,57 @@
+/* ==========================================================================
+   WARPTEXT STYLES
+   Fluid glass refraction, ambient wave undulation & interactive lensing
+   ========================================================================== */
+
+.warp-text {
+  position: relative;
+  display: block;
+  overflow: visible !important;
+  isolation: isolate;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Headings & Section Titles */
+.warp-heading {
+  position: relative;
+  display: inline-block !important;
+  vertical-align: middle;
+  overflow: visible !important;
+  isolation: isolate;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Descriptions & Multi-line Paragraphs */
+.warp-desc {
+  position: relative;
+  display: block;
+  overflow: visible !important;
+  isolation: isolate;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.warptext-canvas {
+  display: block;
+  cursor: pointer !important;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* ELIMINATE DOUBLE TEXT: Hide underlying DOM text completely once WebGL is active */
+.warp-active {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+}
+
+.warp-active > *:not(canvas) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  -webkit-text-fill-color: transparent !important;
+}

@@ -1,0 +1,158 @@
+.glitch {
+  --glitch-mask-a: linear-gradient(
+    #000 var(--glitch-a-top, 0%),
+    transparent var(--glitch-a-top, 0%),
+    transparent calc(100% - var(--glitch-a-bottom, 100%)),
+    #000 calc(100% - var(--glitch-a-bottom, 100%))
+  );
+  --glitch-mask-b: linear-gradient(
+    #000 var(--glitch-b-top, 0%),
+    transparent var(--glitch-b-top, 0%),
+    transparent calc(100% - var(--glitch-b-bottom, 100%)),
+    #000 calc(100% - var(--glitch-b-bottom, 100%))
+  );
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  margin: 0;
+  font-size: var(--glitch-font-size, inherit);
+  font-weight: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+
+.glitch__text {
+  display: inline-block;
+  opacity: var(--glitch-alpha, 1);
+  transform: skewX(var(--glitch-skew, 0deg));
+  transform-origin: 0 50%;
+  -webkit-mask-image: var(--glitch-mask-a), var(--glitch-mask-b);
+  mask-image: var(--glitch-mask-a), var(--glitch-mask-b);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.glitch__slice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--glitch-alpha, 1);
+  transform-origin: 0 50%;
+}
+
+.glitch__slice--a {
+  text-shadow: var(--glitch-a-shadow, none);
+  filter: var(--glitch-a-filter, none);
+  clip-path: inset(var(--glitch-a-top, 0%) 0 var(--glitch-a-bottom, 100%) 0);
+  transform: translate3d(var(--glitch-a-x, 0px), var(--glitch-a-y, 0px), 0) skewX(var(--glitch-skew, 0deg));
+}
+
+.glitch__slice--b {
+  text-shadow: var(--glitch-b-shadow, none);
+  filter: var(--glitch-b-filter, none);
+  clip-path: inset(var(--glitch-b-top, 0%) 0 var(--glitch-b-bottom, 100%) 0);
+  transform: translate3d(var(--glitch-b-x, 0px), var(--glitch-b-y, 0px), 0) skewX(var(--glitch-skew, 0deg));
+  -webkit-mask-image: var(--glitch-mask-a);
+  mask-image: var(--glitch-mask-a);
+}
+
+.glitch--rgb .glitch__text {
+  position: relative;
+  z-index: 1;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.glitch--rgb .glitch__slice {
+  clip-path: none;
+  text-shadow: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  opacity: calc(var(--glitch-alpha, 1) * var(--glitch-split, 0));
+}
+
+.glitch--rgb .glitch__slice--a {
+  color: var(--glitch-color-a, currentColor);
+}
+
+.glitch--rgb .glitch__slice--b {
+  color: var(--glitch-color-b, currentColor);
+}
+
+.glitch--noise .glitch__slice {
+  display: none;
+}
+
+.glitch__char {
+  position: relative;
+}
+
+.glitch__char[data-glyph] {
+  visibility: hidden;
+}
+
+.glitch__char::after {
+  content: attr(data-glyph);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  visibility: visible;
+  text-align: center;
+  color: var(--glitch-glyph, currentColor);
+}
+
+.glitch__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Green + Violet Gradient Glitch styling for VENOM (matching button colors) */
+.glitch-venom,
+.glitch.animate-text,
+.glitch--animated {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: unset !important;
+}
+
+.glitch-venom .glitch__text,
+.glitch-venom .glitch__slice,
+.glitch.animate-text .glitch__text,
+.glitch.animate-text .glitch__slice,
+.glitch--animated .glitch__text,
+.glitch--animated .glitch__slice {
+  background: linear-gradient(90deg, #22C55E, #A855F7, #22C55E, #A855F7);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: colorFlow 3s linear infinite;
+  display: inline-block;
+}
+
+.glitch-venom .glitch__slice--a,
+.glitch.animate-text .glitch__slice--a,
+.glitch--animated .glitch__slice--a {
+  filter: drop-shadow(var(--glitch-a-x, 0px) 0 2px rgba(34, 197, 94, 0.95)) drop-shadow(0 0 8px rgba(34, 197, 94, 0.5));
+}
+
+.glitch-venom .glitch__slice--b,
+.glitch.animate-text .glitch__slice--b,
+.glitch--animated .glitch__slice--b {
+  filter: drop-shadow(var(--glitch-b-x, 0px) 0 2px rgba(168, 85, 247, 0.95)) drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
+}
+

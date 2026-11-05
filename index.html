@@ -149,6 +149,19 @@
             width: 100%;
             -webkit-tap-highlight-color: transparent;
         }
+        /* Never show I-beam cursor on headings, descriptions, or interactive text */
+        h1, h2, h3, h4, h5, h6, p, span, .hero-description, .venom-name, .warp-heading, .warp-desc {
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        a, button, [role="button"], .cursor-pointer, .card-hover, .warp-heading, .warp-desc, .warp-heading canvas, .warp-desc canvas {
+            cursor: pointer !important;
+        }
+        input, textarea {
+            cursor: text !important;
+            user-select: text !important;
+        }
         .glass { 
             background: rgba(18, 18, 18, 0.85); 
             backdrop-filter: blur(12px); 
@@ -522,6 +535,13 @@
             display: none;
         }
     </style>
+    <link rel="stylesheet" href="DotField.css">
+    <link rel="stylesheet" href="Folder.css">
+    <link rel="stylesheet" href="LiquidEther.css">
+    <link rel="stylesheet" href="SpecularButton.css">
+    <link rel="stylesheet" href="GlitchText.css">
+    <link rel="stylesheet" href="LaserFlow.css">
+    <link rel="stylesheet" href="WarpText.css">
 </head>
 <body class="font-sans antialiased">
 
@@ -543,9 +563,9 @@
     <section id="home" class="min-h-screen flex flex-col lg:flex-row justify-center items-center px-5 sm:px-8 md:px-16 lg:px-24 pt-24 pb-12 relative overflow-hidden">
         <div class="z-10 text-center lg:text-left lg:w-1/2 w-full">
             <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-3 sm:mb-4 tracking-tight leading-[1.2] main-heading">
-                Hi, I'm <span class="animate-text venom-name">VENOM</span>
+                Hi, I'm <span id="hero-venom-glitch" class="venom-name animate-text font-extrabold inline-block" data-text="VENOM">VENOM</span>
             </h1>
-            <p class="text-base sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed hero-description">Digital Creator & Full Stack Developer building secure, scalable, and visually engaging digital experiences.</p>
+            <p id="warp-desc-hero" class="warp-desc text-base sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed hero-description" data-text="Digital Creator & Full Stack Developer building secure, scalable, and visually engaging digital experiences.">Digital Creator & Full Stack Developer building secure, scalable, and visually engaging digital experiences.</p>
             <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
                 <a href="#contact" class="bg-primary hover:bg-primary/80 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] text-sm sm:text-base cta-button" style="animation-delay: 0.55s;">Let's Connect</a>
                 <div class="flex gap-5 sm:gap-6 items-center">
@@ -558,7 +578,7 @@
 
         <!-- Cover Image -->
         <div class="lg:w-1/2 flex justify-center lg:justify-end mt-10 lg:mt-0 relative z-0 w-full max-w-md sm:max-w-lg lg:max-w-none">
-            <img src="/image1.jpg" alt="Cover Image" class="hero-cover-image animate-float" loading="eager">
+            <img src="image1.jpg" alt="Cover Image" class="hero-cover-image animate-float" loading="eager">
         </div>
         
         <!-- decorative blobs -->
@@ -568,18 +588,22 @@
 
     <!-- About Section - Image fully visible, no borders, no glow, no crop -->
     <section id="about" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24 bg-black/50">
-        <h2 class="section-title text-center scroll-reveal from-top">ABOUT ME</h2>
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
+            <h2 id="warp-title-about" class="warp-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight scroll-reveal from-top mb-4" data-text="About Me">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-primary drop-shadow-[0_0_35px_rgba(168,85,247,0.5)]">About Me</span>
+            </h2>
+        </div>
         <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
             <div class="flex justify-center order-1 md:order-none scroll-reveal from-left about-img-container">
                 <div class="relative group about-img-wrapper">
                     <!-- REMOVED: blur backdrop, glow div, border, shadow, mask, tilt effect -->
-                    <img src="/image3.jpg" alt="VENOM" class="about-img w-auto h-auto max-w-full max-h-[500px] object-contain" 
+                    <img src="image3.jpg" alt="VENOM" class="about-img w-auto h-auto max-w-full max-h-[500px] object-contain" 
                          style="width: auto; height: auto; max-width: 100%; max-height: 500px; display: block; margin: 0 auto;">
                 </div>
             </div>
             <div class="order-2">
-                <h3 class="text-2xl sm:text-3xl font-bold mb-3 text-primary scroll-reveal from-right">I am <span class="text-white">VENOM</span></h3>
-                <p class="text-gray-400 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 scroll-reveal from-right" style="transition-delay: 0.1s">
+                <h3 id="warp-title-iamvenom" class="warp-heading text-2xl sm:text-3xl font-bold mb-3 text-primary scroll-reveal from-right" data-text="I am VENOM">I am <span class="text-white">VENOM</span></h3>
+                <p id="warp-desc-about" class="warp-desc text-gray-400 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 scroll-reveal from-right" style="transition-delay: 0.1s" data-text="A digital creator and full-stack Android developer from Srinagar, Kashmir. I specialize in building secure, scalable, and visually engaging applications.">
                     A digital creator and full-stack Android developer from Srinagar, Kashmir. I specialize in building secure, scalable, and visually engaging applications.
                 </p>
                 <div class="stats-grid">
@@ -604,108 +628,88 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24">
-        <div class="text-center mb-10 sm:mb-12 md:mb-16">
-            <h2 class="section-title scroll-reveal from-left">Services</h2>
-            <p class="text-gray-400 text-sm sm:text-base scroll-reveal from-right" style="transition-delay: 0.1s">What I can build for you</p>
+    <section id="services" class="relative py-20 sm:py-28 md:py-32 px-5 sm:px-8 md:px-16 lg:px-24 overflow-hidden">
+        <!-- DotField Canvas Background -->
+        <div id="services-dotfield" class="dot-field" style="position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 0;">
+            <canvas class="dot-field__canvas" style="position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; display: block;" aria-hidden="true"></canvas>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <!-- Web Dev -->
-            <div class="bg-card p-6 sm:p-8 rounded-3xl border border-white/10 card-hover flex flex-col items-center text-center scroll-reveal from-bottom" style="transition-delay: 0.1s">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
-                    <i class="fas fa-code text-blue-500 text-2xl sm:text-3xl"></i>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-3">Web Development</h3>
-                <p class="text-gray-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">I build full-stack web applications and services using modern technologies like React, Node.js, and Tailwind CSS.</p>
-                <a href="#contact" class="mt-auto bg-blue-500/10 hover:bg-blue-500 text-blue-500 hover:text-white px-5 sm:px-6 py-2 rounded-full transition-all text-sm sm:text-base">Learn More</a>
+
+        <div class="relative z-10 max-w-7xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 md:mb-20">
+                <h2 id="warp-title-services" class="warp-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight scroll-reveal from-left mb-4" data-text="Services">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-primary drop-shadow-[0_0_35px_rgba(168,85,247,0.5)]">Services</span>
+                </h2>
+                <p id="warp-desc-services" class="warp-desc text-gray-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto scroll-reveal from-right" style="transition-delay: 0.1s" data-text="High-performance digital products engineered with creativity & precision">High-performance digital products engineered with creativity & precision</p>
             </div>
-            <!-- Android Dev -->
-            <div class="bg-card p-6 sm:p-8 rounded-3xl border border-white/10 card-hover flex flex-col items-center text-center scroll-reveal from-bottom" style="transition-delay: 0.25s">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
-                    <i class="fab fa-android text-secondary text-2xl sm:text-3xl"></i>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Web Dev -->
+                <div class="bg-white/[0.04] backdrop-blur-2xl p-7 sm:p-9 rounded-3xl border border-white/15 hover:border-blue-400/50 hover:bg-white/[0.08] hover:shadow-[0_12px_40px_rgba(59,130,246,0.25)] card-hover flex flex-col items-center text-center scroll-reveal from-bottom transition-all duration-300" style="transition-delay: 0.1s">
+                    <div class="w-16 h-16 bg-blue-500/15 border border-blue-500/30 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-blue-500/10">
+                        <i class="fas fa-code text-blue-400 text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">Web Development</h3>
+                    <p class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed flex-1">I build responsive, full-stack web applications and services using modern technologies like React, Node.js, and Tailwind CSS.</p>
+                    <a href="#contact" class="mt-auto bg-blue-500/15 hover:bg-blue-500 text-blue-400 hover:text-white border border-blue-500/30 px-6 py-2.5 rounded-full transition-all text-sm sm:text-base font-medium shadow-md">Learn More</a>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-3">Android Development</h3>
-                <p class="text-gray-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">I design and develop Android applications. From utility tools to complex media players like AirBeats.</p>
-                <a href="https://github.com/drkvenom786" target="_blank" class="mt-auto bg-secondary/10 hover:bg-secondary text-secondary hover:text-white px-5 sm:px-6 py-2 rounded-full transition-all text-sm sm:text-base">View Projects</a>
-            </div>
-            <!-- UI/UX -->
-            <div class="bg-card p-6 sm:p-8 rounded-3xl border border-white/10 card-hover flex flex-col items-center text-center scroll-reveal from-bottom" style="transition-delay: 0.4s">
-                <div class="w-14 h-14 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6">
-                    <i class="fas fa-paint-brush text-primary text-2xl sm:text-3xl"></i>
+                <!-- Android Dev -->
+                <div class="bg-white/[0.04] backdrop-blur-2xl p-7 sm:p-9 rounded-3xl border border-white/15 hover:border-secondary/50 hover:bg-white/[0.08] hover:shadow-[0_12px_40px_rgba(34,197,94,0.25)] card-hover flex flex-col items-center text-center scroll-reveal from-bottom transition-all duration-300" style="transition-delay: 0.25s">
+                    <div class="w-16 h-16 bg-secondary/15 border border-secondary/30 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-green-500/10">
+                        <i class="fab fa-android text-secondary text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">Android Development</h3>
+                    <p class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed flex-1">I design and develop native Android applications. From utility tools to complex multimedia engines like AirBeats.</p>
+                    <a href="https://github.com/drkvenom786" target="_blank" class="mt-auto bg-secondary/15 hover:bg-secondary text-secondary hover:text-white border border-secondary/30 px-6 py-2.5 rounded-full transition-all text-sm sm:text-base font-medium shadow-md">View Projects</a>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-3">UI/UX Design</h3>
-                <p class="text-gray-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">Creating visually engaging and user-friendly digital experiences that prioritize usability and aesthetics.</p>
-                <a href="#contact" class="mt-auto bg-primary/10 hover:bg-primary text-primary hover:text-white px-5 sm:px-6 py-2 rounded-full transition-all text-sm sm:text-base">Get Quote</a>
+                <!-- UI/UX -->
+                <div class="bg-white/[0.04] backdrop-blur-2xl p-7 sm:p-9 rounded-3xl border border-white/15 hover:border-primary/50 hover:bg-white/[0.08] hover:shadow-[0_12px_40px_rgba(168,85,247,0.25)] card-hover flex flex-col items-center text-center scroll-reveal from-bottom transition-all duration-300" style="transition-delay: 0.4s">
+                    <div class="w-16 h-16 bg-primary/15 border border-primary/30 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-purple-500/10">
+                        <i class="fas fa-paint-brush text-primary text-2xl sm:text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">UI/UX Design</h3>
+                    <p class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed flex-1">Creating visually stunning, intuitive digital experiences that prioritize interaction design, micro-animations, and usability.</p>
+                    <a href="#contact" class="mt-auto bg-primary/10 hover:bg-primary text-primary hover:text-white border border-primary/30 px-6 py-2.5 rounded-full transition-all text-sm sm:text-base font-medium shadow-md">Get Quote</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24 bg-black/50">
-        <div class="text-center mb-10 sm:mb-12 md:mb-16">
-            <h2 class="section-title scroll-reveal from-top">Projects</h2>
-            <p class="text-gray-400 text-sm sm:text-base scroll-reveal from-bottom" style="transition-delay: 0.1s">A showcase of apps and websites I've built</p>
+    <section id="projects" class="relative py-20 sm:py-28 md:py-32 px-5 sm:px-8 md:px-16 lg:px-24 bg-black/60 overflow-visible">
+        <!-- LiquidEther Canvas Background -->
+        <div id="projects-liquidether" class="liquid-ether" style="position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 0; overflow: hidden;">
+            <canvas class="liquid-ether__canvas" style="position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; display: block;" aria-hidden="true"></canvas>
         </div>
-        
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <!-- Project 1 - AirBeats Music Player -->
-            <div class="bg-card rounded-3xl overflow-hidden border border-white/10 card-hover h-full flex flex-col scroll-reveal scale-in" style="transition-delay: 0.1s">
-                <div class="p-6 sm:p-8 flex flex-col items-center text-center flex-1">
-                    <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" alt="AirBeats" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 sm:mb-6 border-2 border-secondary p-1 hover:rotate-12 transition-all shadow-lg shadow-green-500/20">
-                    <h3 class="text-lg sm:text-xl font-bold mb-2">AirBeats – Music Player</h3>
-                    <div class="flex text-yellow-500 mb-4 gap-1 text-xs sm:text-sm">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed flex-1">High-performance, ad-free Android music player app with background playback, offline audio optimization, and clean UI.</p>
-                    <a href="https://airbeats.org" target="_blank" class="w-full bg-secondary hover:bg-secondary/80 text-white py-2.5 sm:py-3 rounded-2xl transition-all flex items-center justify-center gap-2 hover:gap-4 text-sm sm:text-base font-semibold shadow-lg shadow-green-600/30">
-                        View AirBeats <i class="fas fa-external-link-alt text-xs"></i>
-                    </a>
-                </div>
-            </div>
 
-            <!-- Project 2 - AirFlix Cinema Streaming -->
-            <div class="bg-card rounded-3xl overflow-hidden border border-white/10 card-hover h-full flex flex-col scroll-reveal scale-in" style="transition-delay: 0.25s">
-                <div class="p-6 sm:p-8 flex flex-col items-center text-center flex-1">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 sm:mb-6 border-2 border-red-500 bg-red-600/10 flex items-center justify-center text-red-500 hover:rotate-12 transition-all shadow-lg shadow-red-500/20">
-                        <i class="fas fa-film text-2xl sm:text-3xl"></i>
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-bold mb-2">AirFlix – Cinema Streaming</h3>
-                    <div class="flex text-yellow-500 mb-4 gap-1 text-xs sm:text-sm">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed flex-1">Next-generation 4K Ultra HD movie & TV show streaming platform with auto-adaptive playback, search, and region discovery.</p>
-                    <a href="https://airflix.netlify.app" target="_blank" class="w-full bg-red-600 hover:bg-red-500 text-white py-2.5 sm:py-3 rounded-2xl transition-all flex items-center justify-center gap-2 hover:gap-4 text-sm sm:text-base font-semibold shadow-lg shadow-red-600/30">
-                        View AirFlix <i class="fas fa-external-link-alt text-xs"></i>
-                    </a>
-                </div>
-            </div>
+        <div class="relative z-10 text-center mb-10 sm:mb-14 max-w-4xl mx-auto">
+            <h2 id="warp-title-projects" class="warp-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight scroll-reveal from-top mb-4" data-text="Projects">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-green-200 to-secondary drop-shadow-[0_0_35px_rgba(34,197,94,0.4)]">Projects</span>
+            </h2>
+            <p id="warp-desc-projects" class="warp-desc text-gray-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto scroll-reveal from-bottom" style="transition-delay: 0.1s" data-text="A showcase of apps and projects I've built">
+                A showcase of apps and projects I've built
+            </p>
+        </div>
 
-            <!-- Project 3 - ChatsApp Realtime Platform -->
-            <div class="bg-card rounded-3xl overflow-hidden border border-white/10 card-hover h-full flex flex-col scroll-reveal scale-in" style="transition-delay: 0.4s">
-                <div class="p-6 sm:p-8 flex flex-col items-center text-center flex-1">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 sm:mb-6 border-2 border-primary bg-primary/10 flex items-center justify-center text-primary hover:rotate-12 transition-all shadow-lg shadow-purple-500/20">
-                        <i class="fas fa-comments text-2xl sm:text-3xl"></i>
-                    </div>
-                    <h3 class="text-lg sm:text-xl font-bold mb-2">ChatsApp – Realtime Messenger</h3>
-                    <div class="flex text-yellow-500 mb-4 gap-1 text-xs sm:text-sm">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed flex-1">Modern real-time chat application featuring instant messaging, channel rooms, media sharing, and sleek responsive design.</p>
-                    <a href="https://chatsapp.pages.dev" target="_blank" class="w-full bg-primary hover:bg-primary/80 text-white py-2.5 sm:py-3 rounded-2xl transition-all flex items-center justify-center gap-2 hover:gap-4 text-sm sm:text-base font-semibold shadow-lg shadow-purple-600/30">
-                        View ChatsApp <i class="fas fa-external-link-alt text-xs"></i>
-                    </a>
-                </div>
-            </div>
+        <!-- 3D Folder Container -->
+        <div class="flex flex-col items-center justify-center py-6 sm:py-10 min-h-[460px] sm:min-h-[520px] overflow-visible relative z-10">
+            <div id="projects-folder" class="relative z-20 flex justify-center items-center"></div>
         </div>
     </section>
 
     <!-- Contact Section - with WhatsApp added and contact details hidden, mobile view title visible on right -->
-    <section id="contact" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24">
-        <div class="text-center mb-10 sm:mb-12 md:mb-16">
-            <h2 class="section-title scroll-reveal from-top">Get In Touch</h2>
-            <p class="text-gray-400 text-sm sm:text-base scroll-reveal from-bottom" style="transition-delay: 0.1s">Reach out through any of these channels</p>
+    <section id="contact" class="py-16 sm:py-20 md:py-24 px-5 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden">
+        <!-- LaserFlow light falling from top of section over right side field (desktop only) -->
+        <div id="contact-laserflow" class="hidden lg:block pointer-events-none z-0" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden;"></div>
+
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16 relative z-10">
+            <h2 id="warp-title-contact" class="warp-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight scroll-reveal from-top mb-4" data-text="Get In Touch">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-primary drop-shadow-[0_0_35px_rgba(168,85,247,0.5)]">Get In Touch</span>
+            </h2>
+            <p id="warp-desc-contact" class="warp-desc text-gray-300 text-base sm:text-lg md:text-xl font-normal max-w-2xl mx-auto scroll-reveal from-bottom" style="transition-delay: 0.1s" data-text="Reach out through any of these channels">
+                Reach out through any of these channels
+            </p>
         </div>
-        <div class="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
+        <div class="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 relative z-10 items-start">
             <div class="space-y-5 sm:space-y-6">
                 <!-- Email -->
                 <div class="bg-card p-5 sm:p-6 md:p-8 rounded-3xl border border-white/10 card-hover scroll-reveal from-left contact-card" style="transition-delay: 0.15s; display: flex; flex-direction: row; align-items: center; gap: 1rem;">
@@ -741,8 +745,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Form -->
-            <div class="bg-card p-6 sm:p-8 md:p-10 lg:p-12 rounded-3xl border border-white/10 scroll-reveal from-right" style="transition-delay: 0.2s">
+            <!-- Form Card (Target Surface) -->
+            <div id="contact-form-card" class="bg-card p-6 sm:p-8 md:p-10 lg:p-12 rounded-3xl border border-white/10 scroll-reveal from-right relative z-10" style="transition-delay: 0.2s">
                 <form class="space-y-5 sm:space-y-6">
                     <input type="text" placeholder="Your Full Name" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-3 sm:py-4 focus:border-primary outline-none transition-all text-sm sm:text-base">
                     <input type="email" placeholder="Your Email" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-3 sm:py-4 focus:border-primary outline-none transition-all text-sm sm:text-base">
@@ -792,6 +796,338 @@
         setTimeout(() => {
             window.dispatchEvent(new Event('resize'));
         }, 100);
+    </script>
+
+    <!-- DotField Effect Integration -->
+    <script src="dotfield.js"></script>
+    <script>
+        (function() {
+            function startDotField() {
+                const container = document.getElementById('services-dotfield');
+                if (container && window.DotField) {
+                    window.DotField.init(container, {
+                        gradientFrom: "#cabfc9",
+                        gradientTo: "#cabfc9",
+                        dotRadius: 1.8,
+                        dotSpacing: 14,
+                        cursorRadius: 240,
+                        bulgeStrength: 0.45,
+                        glowRadius: 180,
+                        twist: 5,
+                        glowIntensity: 0.85,
+                        waveAmplitude: 2.5,
+                        pattern: 'grid',
+                        glowColor: '#ffffff',
+                        baseOpacity: 0.65,
+                        sparkle: true,
+                        speed: 1,
+                        interactive: true,
+                        holdToZoom: true,
+                        intro: true,
+                        lightMode: false,
+                        opacity: 1,
+                        maxDevicePixelRatio: 2
+                    });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', startDotField);
+            } else {
+                startDotField();
+            }
+        })();
+    </script>
+
+    <!-- Folder 3D Effect Integration -->
+    <script src="folder.js"></script>
+    <script>
+        (function() {
+            function startFolder() {
+                const container = document.getElementById('projects-folder');
+                if (container && window.Folder) {
+                    window.Folder.init(container, {
+                        label: "Projects",
+                        color: "#A855F7",
+                        variant: "glass",
+                        paperColor: "#121212",
+                        size: 1.7,
+                        layout: "spread",
+                        defaultOpen: true,
+                        draggable: true,
+                        zoomOnClick: true,
+                        peek: true,
+                        intro: true,
+                        items: [
+                            {
+                                title: "AirBeats – Music Player",
+                                description: "High-performance, ad-free Android music player app with background playback, offline audio optimization, and clean UI.",
+                                url: "https://airbeats.org",
+                                btnText: "View AirBeats",
+                                accentColor: "#22C55E",
+                                iconHtml: '<img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/refs/heads/main/icon2.png" alt="AirBeats" class="w-full h-full object-cover rounded-lg">'
+                            },
+                            {
+                                title: "AirFlix – Cinema Streaming",
+                                description: "Next-generation 4K Ultra HD movie & TV show streaming platform with auto-adaptive playback, search, and region discovery.",
+                                url: "https://airflix.netlify.app",
+                                btnText: "View AirFlix",
+                                accentColor: "#EF4444",
+                                iconHtml: '<i class="fas fa-film text-xl sm:text-2xl text-red-500"></i>'
+                            },
+                            {
+                                title: "ChatsApp – Realtime Messenger",
+                                description: "Modern real-time chat application featuring instant messaging, channel rooms, media sharing, and sleek responsive design.",
+                                url: "https://chatsapp.pages.dev",
+                                btnText: "View ChatsApp",
+                                accentColor: "#A855F7",
+                                iconHtml: '<i class="fas fa-comments text-xl sm:text-2xl text-primary"></i>'
+                            }
+                        ]
+                    });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', startFolder);
+            } else {
+                startFolder();
+            }
+        })();
+    </script>
+
+    <!-- LiquidEther Background Effect Integration -->
+    <script src="liquidether.js"></script>
+    <script>
+        (function() {
+            function startLiquidEther() {
+                const container = document.getElementById('projects-liquidether');
+                if (container && window.LiquidEther) {
+                    window.LiquidEther.init(container, {
+                        colors: ["#ffffff", "#000000", "#ffffff"],
+                        mouseForce: 20,
+                        cursorSize: 35,
+                        persistence: 0.48,
+                        autoDemo: true,
+                        autoSpeed: 0.5,
+                        autoIntensity: 0.8,
+                        resolution: 0.35,
+                        backgroundColor: 'transparent'
+                    });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', startLiquidEther);
+            } else {
+                startLiquidEther();
+            }
+        })();
+    </script>
+
+    <!-- Specular Light Effect for Buttons & Cards -->
+    <script src="specular.js"></script>
+
+    <!-- GlitchText Effect for Hero VENOM Text -->
+    <script src="glitchtext.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroVenom = document.getElementById('hero-venom-glitch');
+            if (heroVenom && window.GlitchText) {
+                window.GlitchText.init(heroVenom, {
+                    mode: "slices",
+                    trigger: "always",
+                    speed: 0.6,
+                    intensity: 0.55,
+                    offset: 12,
+                    burstDuration: 0.6,
+                    enableShadows: true,
+                    shadowColors: ['#22C55E', '#A855F7'],
+                    flicker: false
+                });
+            }
+        });
+    </script>
+
+    <!-- WarpText Interactive Fluid Glass Refraction for Headings & Descriptions -->
+    <script type="module">
+        import { initWarpText } from './warptext.js';
+
+        const baseHeadingConfig = {
+            warpStrength: 0.17,
+            warpScale: 1.1,
+            speed: 0.9,
+            lens: "bulge",
+            pointerInfluence: 0.52,
+            pointerStrength: 0.5,
+            refraction: 0.026,
+            chromatic: 0.04,
+            idleDrift: 0.65,
+            ripple: true,
+            clickRipple: true,
+            intro: false,
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: '800',
+            textAlign: 'center',
+            singleLine: true
+        };
+
+        const baseDescConfig = {
+            warpStrength: 0.12,
+            warpScale: 1.3,
+            speed: 0.8,
+            lens: "bulge",
+            pointerInfluence: 0.45,
+            pointerStrength: 0.45,
+            refraction: 0.018,
+            chromatic: 0.03,
+            idleDrift: 0.5,
+            ripple: true,
+            clickRipple: true,
+            intro: false,
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: '400',
+            multiline: true
+        };
+
+        function startWarp() {
+            // Headings
+            const aboutTitle = document.getElementById('warp-title-about');
+            if (aboutTitle) {
+                initWarpText(aboutTitle, {
+                    ...baseHeadingConfig,
+                    text: "About Me",
+                    gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
+                    shadowColor: 'rgba(168, 85, 247, 0.45)'
+                });
+            }
+
+            // About Section Subtitle "I am VENOM"
+            const iamVenomTitle = document.getElementById('warp-title-iamvenom');
+            if (iamVenomTitle) {
+                initWarpText(iamVenomTitle, {
+                    ...baseHeadingConfig,
+                    text: "I am VENOM",
+                    singleLine: true,
+                    textAlign: 'left',
+                    fontWeight: '700',
+                    segments: [
+                        { text: "I am ", color: "#A855F7" },
+                        { text: "VENOM", color: "#FFFFFF" }
+                    ],
+                    shadowColor: 'rgba(168, 85, 247, 0.45)',
+                    shadowBlur: 15
+                });
+            }
+
+            const servicesTitle = document.getElementById('warp-title-services');
+            if (servicesTitle) {
+                initWarpText(servicesTitle, {
+                    ...baseHeadingConfig,
+                    text: "Services",
+                    gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
+                    shadowColor: 'rgba(168, 85, 247, 0.45)'
+                });
+            }
+
+            const projectsTitle = document.getElementById('warp-title-projects');
+            if (projectsTitle) {
+                initWarpText(projectsTitle, {
+                    ...baseHeadingConfig,
+                    text: "Projects",
+                    gradientColors: ['#FFFFFF', '#BBF7D0', '#22C55E'],
+                    shadowColor: 'rgba(34, 197, 94, 0.45)'
+                });
+            }
+
+            const contactTitle = document.getElementById('warp-title-contact');
+            if (contactTitle) {
+                initWarpText(contactTitle, {
+                    ...baseHeadingConfig,
+                    text: "Get In Touch",
+                    gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
+                    shadowColor: 'rgba(168, 85, 247, 0.45)'
+                });
+            }
+
+            // Descriptions & Subtitles
+            const heroDesc = document.getElementById('warp-desc-hero');
+            if (heroDesc) {
+                initWarpText(heroDesc, {
+                    ...baseDescConfig,
+                    color: '#9CA3AF',
+                    textAlign: window.innerWidth >= 1024 ? 'left' : 'center'
+                });
+            }
+
+            const aboutDesc = document.getElementById('warp-desc-about');
+            if (aboutDesc) {
+                initWarpText(aboutDesc, {
+                    ...baseDescConfig,
+                    color: '#9CA3AF',
+                    textAlign: 'left'
+                });
+            }
+
+            const servicesDesc = document.getElementById('warp-desc-services');
+            if (servicesDesc) {
+                initWarpText(servicesDesc, {
+                    ...baseDescConfig,
+                    color: '#D1D5DB',
+                    textAlign: 'center'
+                });
+            }
+
+            const projectsDesc = document.getElementById('warp-desc-projects');
+            if (projectsDesc) {
+                initWarpText(projectsDesc, {
+                    ...baseDescConfig,
+                    color: '#D1D5DB',
+                    textAlign: 'center'
+                });
+            }
+
+            const contactDesc = document.getElementById('warp-desc-contact');
+            if (contactDesc) {
+                initWarpText(contactDesc, {
+                    ...baseDescConfig,
+                    color: '#D1D5DB',
+                    textAlign: 'center'
+                });
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startWarp);
+        } else {
+            startWarp();
+        }
+    </script>
+
+    <!-- LaserFlow Light Effect for Contact Form Surface -->
+    <script src="laserflow.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('contact-laserflow');
+            const targetSurface = document.getElementById('contact-form-card');
+            if (container && targetSurface && window.LaserFlow) {
+                window.LaserFlow.init(container, {
+                    surfaceRef: targetSurface,
+                    beamPosition: 0.78,
+                    surfaceBeamRatio: 0.75,
+                    color: "#A855F7",
+                    intensity: 1.4,
+                    flare: 1.2,
+                    spread: 1.3,
+                    spill: 0.8,
+                    fog: 0.0,
+                    dust: 1.2,
+                    speed: 1.2,
+                    mouseInteraction: true,
+                    desktopOnly: true
+                });
+            }
+        });
     </script>
 </body>
 </html>
