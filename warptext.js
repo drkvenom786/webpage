@@ -319,6 +319,14 @@ export function initWarpText(container, userOptions = {}) {
     container._warpInstance.destroy();
   }
 
+  // Strict mobile & touch guard: Never run WebGL text effects on mobile/touch screens
+  const isTouch = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const isSmall = typeof window !== 'undefined' && window.innerWidth < 1024;
+  const isMobileUA = typeof navigator !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isTouch || isSmall || isMobileUA) {
+    return null;
+  }
+
   const props = {
     text: userOptions.text || container.getAttribute('data-text') || container.textContent.trim(),
     color: userOptions.color,
@@ -392,7 +400,19 @@ export function initWarpText(container, userOptions = {}) {
   canvas.style.cursor = 'pointer';
   canvas.style.pointerEvents = 'auto';
   canvas.style.zIndex = '2';
+  canvas.style.background = 'transparent';
   container.appendChild(canvas);
+
+  const onContextLost = (e) => {
+    e.preventDefault();
+    alive = false;
+    if (raf) cancelAnimationFrame(raf);
+    if (canvas && canvas.parentNode === container) {
+      container.removeChild(canvas);
+    }
+    container.classList.remove('warp-active');
+  };
+  canvas.addEventListener('webglcontextlost', onContextLost);
 
   texture = new Texture(gl, {
     generateMipmaps: false,
@@ -574,6 +594,7 @@ export function initWarpText(container, userOptions = {}) {
       canvas.removeEventListener('pointermove', onPointerMove);
       canvas.removeEventListener('pointerleave', onPointerLeave);
       canvas.removeEventListener('pointerdown', onPointerDown);
+      canvas.removeEventListener('webglcontextlost', onContextLost);
       if (canvas.parentNode === container) container.removeChild(canvas);
       container.classList.remove('warp-active');
       delete container._warpInstance;

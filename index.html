@@ -134,9 +134,10 @@
         }
       ]
     }
-    </script>>
+    </script>
     <style>
         /* base reset + smoothness */
+        canvas { background-color: transparent !important; }
         * {
             margin: 0;
             padding: 0;
@@ -991,7 +992,15 @@
         };
 
         function startWarp() {
-            // Headings
+            // Strictly guard: Mobile touch screens have zero hover lensing and strict WebGL context limits
+            const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+            const isSmall = window.innerWidth < 1024;
+            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isTouch || isSmall || isMobileUA) {
+                return;
+            }
+
+            // Headings (Desktop only)
             const aboutTitle = document.getElementById('warp-title-about');
             if (aboutTitle) {
                 initWarpText(aboutTitle, {
@@ -1047,52 +1056,6 @@
                     text: "Get In Touch",
                     gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
                     shadowColor: 'rgba(168, 85, 247, 0.45)'
-                });
-            }
-
-            // Descriptions & Subtitles
-            const heroDesc = document.getElementById('warp-desc-hero');
-            if (heroDesc) {
-                initWarpText(heroDesc, {
-                    ...baseDescConfig,
-                    color: '#9CA3AF',
-                    textAlign: window.innerWidth >= 1024 ? 'left' : 'center'
-                });
-            }
-
-            const aboutDesc = document.getElementById('warp-desc-about');
-            if (aboutDesc) {
-                initWarpText(aboutDesc, {
-                    ...baseDescConfig,
-                    color: '#9CA3AF',
-                    textAlign: 'left'
-                });
-            }
-
-            const servicesDesc = document.getElementById('warp-desc-services');
-            if (servicesDesc) {
-                initWarpText(servicesDesc, {
-                    ...baseDescConfig,
-                    color: '#D1D5DB',
-                    textAlign: 'center'
-                });
-            }
-
-            const projectsDesc = document.getElementById('warp-desc-projects');
-            if (projectsDesc) {
-                initWarpText(projectsDesc, {
-                    ...baseDescConfig,
-                    color: '#D1D5DB',
-                    textAlign: 'center'
-                });
-            }
-
-            const contactDesc = document.getElementById('warp-desc-contact');
-            if (contactDesc) {
-                initWarpText(contactDesc, {
-                    ...baseDescConfig,
-                    color: '#D1D5DB',
-                    textAlign: 'center'
                 });
             }
         }

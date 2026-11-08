@@ -580,8 +580,10 @@ void main() {
       lost = true;
       cancelAnimationFrame(raf);
       raf = 0;
+      canvas.style.display = 'none';
     };
     const onRestored = () => {
+      canvas.style.display = 'block';
       lost = false;
       layout();
       wake();

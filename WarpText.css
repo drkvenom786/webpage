@@ -38,20 +38,44 @@
 
 .warptext-canvas {
   display: block;
+  background: transparent !important;
   cursor: pointer !important;
   pointer-events: auto;
   z-index: 2;
 }
 
-/* ELIMINATE DOUBLE TEXT: Hide underlying DOM text completely once WebGL is active */
-.warp-active {
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
-  text-shadow: none !important;
+/* Global transparent background for canvases to eliminate white crash boxes */
+canvas {
+  background-color: transparent !important;
 }
 
-.warp-active > *:not(canvas) {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  -webkit-text-fill-color: transparent !important;
+/* Mobile & Touch Devices: Always disable canvas and keep native text visible */
+@media (pointer: coarse), (max-width: 1023px) {
+  .warptext-canvas {
+    display: none !important;
+  }
+  .warp-active {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+  .warp-active > *:not(canvas) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+}
+
+/* Desktop only: Hide underlying DOM text only when WebGL canvas is actively rendering */
+@media (hover: hover) and (min-width: 1024px) {
+  .warp-active {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  .warp-active > *:not(canvas) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    -webkit-text-fill-color: transparent !important;
+  }
 }
