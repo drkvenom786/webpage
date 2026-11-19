@@ -58,7 +58,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <!-- ==========================================================================
          TAILWIND CSS & CUSTOM CONFIGURATION
@@ -616,14 +617,824 @@
         .about-img-container .blur-backdrop {
             display: none;
         }
-    </style>
-    <link rel="stylesheet" href="DotField.css">
-    <link rel="stylesheet" href="Folder.css">
-    <link rel="stylesheet" href="LiquidEther.css">
-    <link rel="stylesheet" href="SpecularButton.css">
-    <link rel="stylesheet" href="GlitchText.css">
-    <link rel="stylesheet" href="LaserFlow.css">
-    <link rel="stylesheet" href="WarpText.css">
+    
+/* ===== INLINED COMPONENT STYLES FOR ZERO RENDER-BLOCKING REQUESTS ===== */
+
+/* --- DotField.css --- */
+.dot-field {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dot-field__canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+/* --- Folder.css --- */
+.folder-root {
+  --folder-ground: rgba(0, 0, 0, 0.42);
+  --folder-ground-soft: rgba(0, 0, 0, 0.26);
+  --folder-focus: #A855F7;
+  position: relative;
+  display: inline-block;
+  width: var(--folder-w);
+  height: calc(var(--folder-tab-h) + var(--folder-h));
+  vertical-align: middle;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.folder-root[data-theme='light'] {
+  --folder-ground: rgba(24, 22, 40, 0.16);
+  --folder-ground-soft: rgba(24, 22, 40, 0.1);
+  --folder-focus: #18181b;
+}
+
+.folder-stage {
+  position: absolute;
+  inset: 0;
+  perspective: var(--folder-depth);
+  perspective-origin: calc(var(--folder-w) / 2) calc(var(--folder-tab-h) + var(--folder-h) / 2);
+  cursor: pointer;
+  outline: none;
+  isolation: isolate;
+}
+
+.folder-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.folder-ground {
+  z-index: 1;
+  width: var(--folder-w);
+  pointer-events: none;
+}
+
+.folder-root[data-mode='book'] .folder-ground,
+.folder-cast {
+  height: var(--folder-h);
+  border-radius: var(--folder-front-radius);
+  box-shadow:
+    0 calc(1px * var(--folder-scale)) calc(2px * var(--folder-scale)) var(--folder-ground),
+    0 calc(10px * var(--folder-scale)) calc(28px * var(--folder-scale)) var(--folder-ground-soft);
+}
+
+.folder-cast {
+  z-index: 1;
+  width: var(--folder-w);
+  height: calc(var(--folder-h) - var(--folder-front-y) + var(--folder-tab-h));
+  pointer-events: none;
+}
+
+.folder-root[data-mode='flap'] .folder-ground {
+  height: calc(var(--folder-h) * 0.14);
+  margin-top: calc(var(--folder-h) * -0.07);
+  border-radius: 50%;
+  background: var(--folder-ground);
+  filter: blur(calc(var(--folder-h) * 0.05));
+}
+
+.folder-back {
+  z-index: 4;
+  width: var(--folder-w);
+  height: calc(var(--folder-tab-h) + var(--folder-h));
+}
+
+.folder-back-fill {
+  position: absolute;
+  inset: 0;
+}
+
+.folder-gutter {
+  position: absolute;
+  top: var(--folder-tab-h);
+  bottom: 0;
+  left: 0;
+  width: calc(12px * var(--folder-scale));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0));
+  opacity: var(--folder-gutter, 0);
+}
+
+.folder-back-rim {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.folder-focus {
+  fill: none;
+  stroke: none;
+}
+
+.folder-stage:focus-visible .folder-focus {
+  stroke: var(--folder-focus);
+  stroke-width: 2;
+}
+
+.folder-tab-text {
+  position: absolute;
+  top: 0;
+  display: flex;
+  height: var(--folder-tab-h);
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding-top: calc(1px * var(--folder-scale));
+  overflow: hidden;
+  color: var(--folder-tab-ink);
+  opacity: var(--folder-label, 1);
+  font-size: calc(11px * var(--folder-scale));
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-measure {
+  left: 0;
+  width: auto;
+  padding: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.folder-item {
+  z-index: 10;
+  width: var(--folder-doc-w);
+  height: var(--folder-doc-h);
+  overflow: visible;
+  border-radius: calc(14px * var(--folder-scale));
+  background: var(--folder-paper);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 calc(2px * var(--folder-scale)) calc(4px * var(--folder-scale)) rgba(0, 0, 0, 0.3),
+    0 calc((4px + var(--folder-lift, 0) * 18px) * var(--folder-scale))
+      calc((10px + var(--folder-lift, 0) * 32px) * var(--folder-scale))
+      rgba(0, 0, 0, calc(0.35 + var(--folder-lift, 0) * 0.25));
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.folder-root[data-open] .folder-item {
+  cursor: pointer;
+}
+
+.folder-root[data-draggable] .folder-item {
+  cursor: grab;
+  touch-action: none;
+}
+
+.folder-root[data-dragging],
+.folder-root[data-dragging] * {
+  cursor: grabbing !important;
+}
+
+.folder-item:focus-visible {
+  outline: 2px solid var(--folder-focus);
+  outline-offset: 3px;
+}
+
+.folder-shade {
+  z-index: 39;
+  width: var(--folder-w);
+  height: var(--folder-front-h);
+  border-radius: var(--folder-front-radius);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.16));
+  filter: blur(calc(6px * var(--folder-scale)));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.folder-front {
+  z-index: 40;
+  width: var(--folder-w);
+  height: var(--folder-front-h);
+}
+
+.folder-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--folder-front-radius);
+}
+
+.folder-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(rgba(255, 255, 255, var(--folder-glint, 0)), rgba(255, 255, 255, var(--folder-glint, 0))),
+    rgba(0, 0, 0, var(--folder-dim, 0));
+  pointer-events: none;
+}
+
+.folder-face-inner,
+.folder-front[data-face='inner'] .folder-face-outer {
+  visibility: hidden;
+}
+
+.folder-face-inner {
+  left: -1px;
+}
+
+.folder-front[data-face='inner'] .folder-face-inner {
+  visibility: visible;
+}
+
+.folder-inner-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(12px * var(--folder-scale));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0));
+}
+
+.folder-root[data-variant='solid'] .folder-back-fill,
+.folder-root[data-variant='solid'] .folder-face-inner {
+  background: linear-gradient(180deg, var(--folder-inside-top), var(--folder-inside-bottom));
+}
+
+.folder-root[data-variant='solid'] .folder-face-outer {
+  background: linear-gradient(
+    160deg,
+    var(--folder-front-top) 0%,
+    var(--folder-base) 48%,
+    var(--folder-front-bottom) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.folder-root[data-variant='glass'] .folder-back-fill {
+  background: linear-gradient(180deg, var(--folder-inside-top), var(--folder-inside-bottom));
+}
+
+.folder-root[data-variant='glass'] .folder-face-outer,
+.folder-root[data-variant='glass'] .folder-face-inner {
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.06) 46%,
+      rgba(255, 255, 255, 0.12) 100%
+    ),
+    rgba(var(--folder-rgb), 0.28);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(var(--folder-frost)) saturate(1.8);
+  backdrop-filter: blur(var(--folder-frost)) saturate(1.8);
+}
+
+.folder-root[data-gl] .folder-face {
+  visibility: hidden;
+}
+
+.folder-glass {
+  position: absolute;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.folder-root[data-variant='matte'] .folder-back-fill,
+.folder-root[data-variant='matte'] .folder-face-inner {
+  background: var(--folder-inside-bottom);
+}
+
+.folder-root[data-variant='matte'] .folder-face-outer {
+  background: var(--folder-base);
+}
+
+/* Custom Project Card Styling inside Folder Documents */
+.folder-project-card {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: calc(14px * var(--folder-scale)) calc(12px * var(--folder-scale));
+  background: #121212;
+  color: #ffffff;
+  border-radius: inherit;
+  position: relative;
+  overflow: visible;
+}
+
+.folder-project-icon {
+  width: calc(34px * var(--folder-scale));
+  height: calc(34px * var(--folder-scale));
+  border-radius: calc(9px * var(--folder-scale));
+  margin-bottom: calc(8px * var(--folder-scale));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.folder-item:hover .folder-project-icon {
+  transform: rotate(10deg) scale(1.05);
+}
+
+.folder-project-title {
+  font-size: calc(10.5px * var(--folder-scale));
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: calc(3px * var(--folder-scale));
+  line-height: 1.2;
+}
+
+.folder-project-rating {
+  display: flex;
+  gap: 2px;
+  color: #eab308;
+  font-size: calc(7px * var(--folder-scale));
+  margin-bottom: calc(6px * var(--folder-scale));
+}
+
+.folder-project-desc {
+  font-size: calc(7.5px * var(--folder-scale));
+  color: #9ca3af;
+  line-height: 1.35;
+  margin-bottom: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.folder-project-btn {
+  width: 100%;
+  padding: calc(5px * var(--folder-scale)) calc(8px * var(--folder-scale));
+  border-radius: calc(7px * var(--folder-scale));
+  font-size: calc(8px * var(--folder-scale));
+  font-weight: 600;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-top: calc(8px * var(--folder-scale));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.folder-project-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
+}
+
+/* Mobile & Touch Responsiveness */
+@media (max-width: 640px) {
+  .folder-root {
+    touch-action: pan-y;
+  }
+  .folder-stage {
+    touch-action: pan-y;
+  }
+  .folder-project-card {
+    padding: calc(11px * var(--folder-scale)) calc(9px * var(--folder-scale));
+  }
+  .folder-project-icon {
+    width: calc(30px * var(--folder-scale));
+    height: calc(30px * var(--folder-scale));
+    border-radius: calc(8px * var(--folder-scale));
+    margin-bottom: calc(5px * var(--folder-scale));
+  }
+  .folder-project-title {
+    font-size: calc(10px * var(--folder-scale));
+    margin-bottom: calc(2px * var(--folder-scale));
+  }
+  .folder-project-rating {
+    font-size: calc(6.5px * var(--folder-scale));
+    margin-bottom: calc(4px * var(--folder-scale));
+  }
+  .folder-project-desc {
+    font-size: calc(7.5px * var(--folder-scale));
+    line-height: 1.3;
+    -webkit-line-clamp: 2;
+  }
+  .folder-project-btn {
+    padding: calc(5px * var(--folder-scale)) calc(8px * var(--folder-scale));
+    font-size: calc(8px * var(--folder-scale));
+    border-radius: calc(6px * var(--folder-scale));
+    margin-top: calc(5px * var(--folder-scale));
+  }
+}
+
+
+/* --- LiquidEther.css --- */
+.liquid-ether {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.liquid-ether__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* --- SpecularButton.css --- */
+.specular-button {
+  --sb-radius: 18px;
+  --sb-tint: #ffffff;
+  --sb-tint-opacity: 0.04;
+  --sb-blur: 0px;
+  --sb-text-color: #f5f5f5;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin: 0;
+  border: 0;
+  border-radius: var(--sb-radius);
+  font: inherit;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--sb-text-color);
+  background: color-mix(in srgb, var(--sb-tint) calc(var(--sb-tint-opacity) * 100%), transparent);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(var(--sb-blur));
+  backdrop-filter: blur(var(--sb-blur));
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.specular-button:active {
+  transform: scale(0.97);
+}
+
+.specular-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--sb-text-color) 55%, transparent);
+  outline-offset: 3px;
+}
+
+.specular-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.specular-button:disabled:active {
+  transform: none;
+}
+
+.specular-button--sm {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+}
+
+.specular-button--md {
+  padding: 14px 28px;
+  font-size: 1rem;
+}
+
+.specular-button--lg {
+  padding: 18px 38px;
+  font-size: 1.125rem;
+}
+
+.specular-button__light {
+  position: absolute;
+  inset: -24px;
+  z-index: 1;
+  display: block;
+  width: calc(100% + 48px);
+  height: calc(100% + 48px);
+  pointer-events: none;
+}
+
+.specular-button__label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+}
+
+/* General Specular Border Utility for any Button or Card */
+.specular-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.specular-light-canvas {
+  position: absolute;
+  inset: -24px;
+  z-index: 20;
+  display: block;
+  width: calc(100% + 48px) !important;
+  height: calc(100% + 48px) !important;
+  pointer-events: none;
+  will-change: transform;
+}
+
+
+/* --- GlitchText.css --- */
+.glitch {
+  --glitch-mask-a: linear-gradient(
+    #000 var(--glitch-a-top, 0%),
+    transparent var(--glitch-a-top, 0%),
+    transparent calc(100% - var(--glitch-a-bottom, 100%)),
+    #000 calc(100% - var(--glitch-a-bottom, 100%))
+  );
+  --glitch-mask-b: linear-gradient(
+    #000 var(--glitch-b-top, 0%),
+    transparent var(--glitch-b-top, 0%),
+    transparent calc(100% - var(--glitch-b-bottom, 100%)),
+    #000 calc(100% - var(--glitch-b-bottom, 100%))
+  );
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  margin: 0;
+  font-size: var(--glitch-font-size, inherit);
+  font-weight: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+
+.glitch__text {
+  display: inline-block;
+  opacity: var(--glitch-alpha, 1);
+  transform: skewX(var(--glitch-skew, 0deg));
+  transform-origin: 0 50%;
+  -webkit-mask-image: var(--glitch-mask-a), var(--glitch-mask-b);
+  mask-image: var(--glitch-mask-a), var(--glitch-mask-b);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.glitch__slice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--glitch-alpha, 1);
+  transform-origin: 0 50%;
+}
+
+.glitch__slice--a {
+  text-shadow: var(--glitch-a-shadow, none);
+  filter: var(--glitch-a-filter, none);
+  clip-path: inset(var(--glitch-a-top, 0%) 0 var(--glitch-a-bottom, 100%) 0);
+  transform: translate3d(var(--glitch-a-x, 0px), var(--glitch-a-y, 0px), 0) skewX(var(--glitch-skew, 0deg));
+}
+
+.glitch__slice--b {
+  text-shadow: var(--glitch-b-shadow, none);
+  filter: var(--glitch-b-filter, none);
+  clip-path: inset(var(--glitch-b-top, 0%) 0 var(--glitch-b-bottom, 100%) 0);
+  transform: translate3d(var(--glitch-b-x, 0px), var(--glitch-b-y, 0px), 0) skewX(var(--glitch-skew, 0deg));
+  -webkit-mask-image: var(--glitch-mask-a);
+  mask-image: var(--glitch-mask-a);
+}
+
+.glitch--rgb .glitch__text {
+  position: relative;
+  z-index: 1;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.glitch--rgb .glitch__slice {
+  clip-path: none;
+  text-shadow: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  opacity: calc(var(--glitch-alpha, 1) * var(--glitch-split, 0));
+}
+
+.glitch--rgb .glitch__slice--a {
+  color: var(--glitch-color-a, currentColor);
+}
+
+.glitch--rgb .glitch__slice--b {
+  color: var(--glitch-color-b, currentColor);
+}
+
+.glitch--noise .glitch__slice {
+  display: none;
+}
+
+.glitch__char {
+  position: relative;
+}
+
+.glitch__char[data-glyph] {
+  visibility: hidden;
+}
+
+.glitch__char::after {
+  content: attr(data-glyph);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  visibility: visible;
+  text-align: center;
+  color: var(--glitch-glyph, currentColor);
+}
+
+.glitch__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Green + Violet Gradient Glitch styling for VENOM (matching button colors) */
+.glitch-venom,
+.glitch.animate-text,
+.glitch--animated {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: unset !important;
+}
+
+.glitch-venom .glitch__text,
+.glitch-venom .glitch__slice,
+.glitch.animate-text .glitch__text,
+.glitch.animate-text .glitch__slice,
+.glitch--animated .glitch__text,
+.glitch--animated .glitch__slice {
+  background: linear-gradient(90deg, #22C55E, #A855F7, #22C55E, #A855F7);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: colorFlow 3s linear infinite;
+  display: inline-block;
+}
+
+.glitch-venom .glitch__slice--a,
+.glitch.animate-text .glitch__slice--a,
+.glitch--animated .glitch__slice--a {
+  filter: drop-shadow(var(--glitch-a-x, 0px) 0 2px rgba(34, 197, 94, 0.95)) drop-shadow(0 0 8px rgba(34, 197, 94, 0.5));
+}
+
+.glitch-venom .glitch__slice--b,
+.glitch.animate-text .glitch__slice--b,
+.glitch--animated .glitch__slice--b {
+  filter: drop-shadow(var(--glitch-b-x, 0px) 0 2px rgba(168, 85, 247, 0.95)) drop-shadow(0 0 8px rgba(168, 85, 247, 0.5));
+}
+
+
+
+/* --- LaserFlow.css --- */
+.laser-flow-container {
+  pointer-events: none;
+}
+
+.laser-flow-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* --- WarpText.css --- */
+/* ==========================================================================
+   WARPTEXT STYLES
+   Fluid glass refraction, ambient wave undulation & interactive lensing
+   ========================================================================== */
+
+.warp-text {
+  position: relative;
+  display: block;
+  overflow: visible !important;
+  isolation: isolate;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Headings & Section Titles */
+.warp-heading {
+  position: relative;
+  display: inline-block !important;
+  vertical-align: middle;
+  overflow: visible !important;
+  isolation: isolate;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Descriptions & Multi-line Paragraphs */
+.warp-desc {
+  position: relative;
+  display: block;
+  overflow: visible !important;
+  isolation: isolate;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.warptext-canvas {
+  display: block;
+  background: transparent !important;
+  cursor: pointer !important;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Global transparent background for canvases to eliminate white crash boxes */
+canvas {
+  background-color: transparent !important;
+}
+
+/* Mobile & Touch Devices: Always disable canvas and keep native text visible */
+@media (pointer: coarse), (max-width: 1023px) {
+  .warptext-canvas {
+    display: none !important;
+  }
+  .warp-active {
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+  .warp-active > *:not(canvas) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-text-fill-color: inherit !important;
+  }
+}
+
+/* Desktop only: Hide underlying DOM text only when WebGL canvas is actively rendering */
+@media (hover: hover) and (min-width: 1024px) {
+  .warp-active {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  .warp-active > *:not(canvas) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+}
+
+
+/* Ensure FontAwesome and custom fonts swap immediately */
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-display: swap;
+}
+
+</style>
+    <!-- Preload LCP Image & FontAwesome Asynchronously -->
+    <link rel="preload" as="image" href="image1.webp" type="image/webp" fetchpriority="high">
 </head>
 <body class="font-sans antialiased">
 
@@ -648,6 +1459,7 @@
         </div>
     </header>
 
+    <main id="main-content">
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex flex-col lg:flex-row justify-center items-center px-5 sm:px-8 md:px-16 lg:px-24 pt-24 pb-12 relative overflow-hidden">
         <div class="z-10 text-center lg:text-left lg:w-1/2 w-full">
@@ -668,7 +1480,10 @@
 
         <!-- Cover Image -->
         <div class="lg:w-1/2 flex justify-center lg:justify-end mt-10 lg:mt-0 relative z-0 w-full max-w-md sm:max-w-lg lg:max-w-none">
-            <img src="image1.jpg" alt="Cover Image" class="hero-cover-image animate-float" loading="eager">
+            <picture>
+                <source srcset="image1.webp" type="image/webp">
+                <img src="image1.jpg" alt="VENOM - Gowhar Bashir Cover Image" class="hero-cover-image animate-float" width="620" height="620" fetchpriority="high" loading="eager" decoding="async">
+            </picture>
         </div>
         
         <!-- decorative blobs -->
@@ -687,8 +1502,10 @@
             <div class="flex justify-center order-1 md:order-none scroll-reveal from-left about-img-container">
                 <div class="relative group about-img-wrapper">
                     <!-- REMOVED: blur backdrop, glow div, border, shadow, mask, tilt effect -->
-                    <img src="image3.jpg" alt="VENOM" class="about-img w-auto h-auto max-w-full max-h-[500px] object-contain" 
-                         style="width: auto; height: auto; max-width: 100%; max-height: 500px; display: block; margin: 0 auto;">
+                    <picture>
+                        <source srcset="image3.webp" type="image/webp">
+                        <img src="image3.jpg" alt="VENOM - Gowhar Bashir" class="about-img w-auto h-auto max-w-full max-h-[500px] object-contain" width="500" height="500" loading="lazy" decoding="async" style="width: auto; height: auto; max-width: 100%; max-height: 500px; display: block; margin: 0 auto;">
+                    </picture>
                 </div>
             </div>
             <div class="order-2">
@@ -807,7 +1624,7 @@
                         <i class="fas fa-envelope text-primary text-xl sm:text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <h4 class="text-base sm:text-lg font-bold contact-title">Email</h4>
+                        <h3 class="text-base sm:text-lg font-bold contact-title">Email</h3>
                         <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">cybershield47@gmail.com</p>
                         <a href="mailto: contact@vennomx.com" class="inline-block bg-primary/10 hover:bg-primary text-primary hover:text-white px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm">Send Email</a>
                     </div>
@@ -818,7 +1635,7 @@
                         <i class="fab fa-snapchat text-yellow-400 text-xl sm:text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <h4 class="text-base sm:text-lg font-bold contact-title">Snapchat</h4>
+                        <h3 class="text-base sm:text-lg font-bold contact-title">Snapchat</h3>
                         <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">drk-venom</p>
                         <a href="https://www.snapchat.com/add/drk-venom" target="_blank" rel="noopener noreferrer" class="inline-block bg-yellow-500/10 hover:bg-yellow-500 text-yellow-400 hover:text-black px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm font-semibold">Add on Snapchat</a>
                     </div>
@@ -829,7 +1646,7 @@
                         <i class="fab fa-telegram text-blue-500 text-xl sm:text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <h4 class="text-base sm:text-lg font-bold contact-title">Telegram</h4>
+                        <h3 class="text-base sm:text-lg font-bold contact-title">Telegram</h3>
                         <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">@Scarface_786</p>
                         <a href="https://t.me/Scarface_786" target="_blank" class="inline-block bg-blue-500/10 hover:bg-blue-500 text-blue-500 hover:text-white px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm">Message Me</a>
                     </div>
@@ -840,7 +1657,7 @@
                         <i class="fab fa-whatsapp text-green-500 text-xl sm:text-2xl"></i>
                     </div>
                     <div class="flex-1">
-                        <h4 class="text-base sm:text-lg font-bold contact-title">WhatsApp</h4>
+                        <h3 class="text-base sm:text-lg font-bold contact-title">WhatsApp</h3>
                         <p class="text-gray-500 text-sm mb-3 hidden-contact-detail">+977 9706372354</p>
                         <a href="https://wa.me/9779706372354" target="_blank" class="inline-block bg-green-500/10 hover:bg-green-500 text-green-500 hover:text-white px-5 py-1.5 rounded-full transition-all text-xs sm:text-sm">Chat on WhatsApp</a>
                     </div>
@@ -857,10 +1674,11 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="py-10 sm:py-12 px-5 sm:px-8 md:px-16 lg:px-24 border-t border-white/10 text-center">
-        <p class="text-gray-600 text-xs sm:text-sm">© 2026 VENOM. All rights reserved.</p>
+        <p class="text-gray-400 text-xs sm:text-sm">© 2026 VENOM. All rights reserved.</p>
     </footer>
 
     <script>
@@ -899,138 +1717,132 @@
         }, 100);
     </script>
 
-    <!-- DotField Effect Integration -->
-    <script src="dotfield.js"></script>
+    <!-- Helper for performant below-the-fold lazy initialization -->
     <script>
-        (function() {
-            function startDotField() {
-                const container = document.getElementById('services-dotfield');
-                if (container && window.DotField) {
-                    window.DotField.init(container, {
-                        gradientFrom: "#cabfc9",
-                        gradientTo: "#cabfc9",
-                        dotRadius: 1.8,
-                        dotSpacing: 14,
-                        cursorRadius: 240,
-                        bulgeStrength: 0.45,
-                        glowRadius: 180,
-                        twist: 5,
-                        glowIntensity: 0.85,
-                        waveAmplitude: 2.5,
-                        pattern: 'grid',
-                        glowColor: '#ffffff',
-                        baseOpacity: 0.65,
-                        sparkle: true,
-                        speed: 1,
-                        interactive: true,
-                        holdToZoom: true,
-                        intro: true,
-                        lightMode: false,
-                        opacity: 1,
-                        maxDevicePixelRatio: 2
+        function lazyInitSection(sectionId, callback, margin = '350px') {
+            const el = document.getElementById(sectionId);
+            if (!el) return;
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            obs.disconnect();
+                            callback();
+                        }
                     });
-                }
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', startDotField);
+                }, { rootMargin: margin });
+                observer.observe(el);
             } else {
-                startDotField();
+                setTimeout(callback, 800);
             }
-        })();
+        }
     </script>
 
-    <!-- Folder 3D Effect Integration -->
-    <script src="folder.js"></script>
+    <!-- DotField Effect Integration (Lazy) -->
+    <script src="dotfield.js" defer></script>
     <script>
-        (function() {
-            function startFolder() {
-                const container = document.getElementById('projects-folder');
-                if (container && window.Folder) {
-                    window.Folder.init(container, {
-                        label: "Projects",
-                        color: "#A855F7",
-                        variant: "glass",
-                        paperColor: "#121212",
-                        size: 1.7,
-                        layout: "spread",
-                        defaultOpen: true,
-                        draggable: true,
-                        zoomOnClick: true,
-                        peek: true,
-                        intro: true,
-                        items: [
-                            {
-                                title: "AirBeats – Music Player",
-                                description: "High-performance, ad-free Android music player app with background playback, offline audio optimization, and clean UI.",
-                                url: "https://airbeats.org",
-                                btnText: "View AirBeats",
-                                accentColor: "#22C55E",
-                                iconHtml: '<img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/refs/heads/main/icon2.png" alt="AirBeats" class="w-full h-full object-cover rounded-lg">'
-                            },
-                            {
-                                title: "VectorForge – Image to Vector",
-                                description: "AI-powered image to vector converter & in-browser path editor. Converts raster images into clean, scalable SVG vector graphics.",
-                                url: "https://vectorf.pages.dev/",
-                                btnText: "View VectorForge",
-                                accentColor: "#6366F1",
-                                iconHtml: '<svg class="vf-brand-logo" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.2" style="width: 24px; height: 24px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>'
-                            },
-                            {
-                                title: "ChatsApp – Realtime Messenger",
-                                description: "Modern real-time chat application featuring instant messaging, channel rooms, media sharing, and sleek responsive design.",
-                                url: "https://chatsapp.pages.dev",
-                                btnText: "View ChatsApp",
-                                accentColor: "#A855F7",
-                                iconHtml: '<i class="fas fa-comments text-xl sm:text-2xl text-primary"></i>'
-                            }
-                        ]
-                    });
-                }
+        lazyInitSection('services', function() {
+            const container = document.getElementById('services-dotfield');
+            if (container && window.DotField) {
+                window.DotField.init(container, {
+                    gradientFrom: "#cabfc9",
+                    gradientTo: "#cabfc9",
+                    dotRadius: 1.8,
+                    dotSpacing: 14,
+                    cursorRadius: 240,
+                    bulgeStrength: 0.45,
+                    glowRadius: 180,
+                    twist: 5,
+                    glowIntensity: 0.85,
+                    waveAmplitude: 2.5,
+                    pattern: 'grid',
+                    glowColor: '#ffffff',
+                    baseOpacity: 0.65,
+                    sparkle: true,
+                    speed: 1,
+                    interactive: true,
+                    holdToZoom: true,
+                    intro: true,
+                    lightMode: false,
+                    opacity: 1,
+                    maxDevicePixelRatio: 2
+                });
             }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', startFolder);
-            } else {
-                startFolder();
-            }
-        })();
+        });
     </script>
 
-    <!-- LiquidEther Background Effect Integration -->
-    <script src="liquidether.js"></script>
+    <!-- Folder 3D & LiquidEther Effects Integration (Lazy) -->
+    <script src="folder.js" defer></script>
+    <script src="liquidether.js" defer></script>
     <script>
-        (function() {
-            function startLiquidEther() {
-                const container = document.getElementById('projects-liquidether');
-                if (container && window.LiquidEther) {
-                    window.LiquidEther.init(container, {
-                        colors: ["#ffffff", "#000000", "#ffffff"],
-                        mouseForce: 20,
-                        cursorSize: 35,
-                        persistence: 0.48,
-                        autoDemo: true,
-                        autoSpeed: 0.5,
-                        autoIntensity: 0.8,
-                        resolution: 0.35,
-                        backgroundColor: 'transparent'
-                    });
-                }
+        lazyInitSection('projects', function() {
+            // LiquidEther
+            const leContainer = document.getElementById('projects-liquidether');
+            if (leContainer && window.LiquidEther) {
+                window.LiquidEther.init(leContainer, {
+                    colors: ["#ffffff", "#000000", "#ffffff"],
+                    mouseForce: 20,
+                    cursorSize: 35,
+                    persistence: 0.48,
+                    autoDemo: true,
+                    autoSpeed: 0.5,
+                    autoIntensity: 0.8,
+                    resolution: 0.35,
+                    backgroundColor: 'transparent'
+                });
             }
 
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', startLiquidEther);
-            } else {
-                startLiquidEther();
+            // Folder
+            const fContainer = document.getElementById('projects-folder');
+            if (fContainer && window.Folder) {
+                window.Folder.init(fContainer, {
+                    label: "Projects",
+                    color: "#A855F7",
+                    variant: "glass",
+                    paperColor: "#121212",
+                    size: 1.7,
+                    layout: "spread",
+                    defaultOpen: true,
+                    draggable: true,
+                    zoomOnClick: true,
+                    peek: true,
+                    intro: true,
+                    items: [
+                        {
+                            title: "AirBeats – Music Player",
+                            description: "High-performance, ad-free Android music player app with background playback, offline audio optimization, and clean UI.",
+                            url: "https://airbeats.org",
+                            btnText: "View AirBeats",
+                            accentColor: "#22C55E",
+                            iconHtml: '<img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/refs/heads/main/icon2.png" alt="AirBeats" class="w-full h-full object-cover rounded-lg">'
+                        },
+                        {
+                            title: "VectorForge – Image to Vector",
+                            description: "AI-powered image to vector converter & in-browser path editor. Converts raster images into clean, scalable SVG vector graphics.",
+                            url: "https://vectorf.pages.dev/",
+                            btnText: "View VectorForge",
+                            accentColor: "#6366F1",
+                            iconHtml: '<svg class="vf-brand-logo" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.2" style="width: 24px; height: 24px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>'
+                        },
+                        {
+                            title: "ChatsApp – Realtime Messenger",
+                            description: "Modern real-time chat application featuring instant messaging, channel rooms, media sharing, and sleek responsive design.",
+                            url: "https://chatsapp.pages.dev",
+                            btnText: "View ChatsApp",
+                            accentColor: "#A855F7",
+                            iconHtml: '<i class="fas fa-comments text-xl sm:text-2xl text-primary"></i>'
+                        }
+                    ]
+                });
             }
-        })();
+        });
     </script>
 
     <!-- Specular Light Effect for Buttons & Cards -->
-    <script src="specular.js"></script>
+    <script src="specular.js" defer></script>
 
     <!-- GlitchText Effect for Hero VENOM Text -->
-    <script src="glitchtext.js"></script>
+    <script src="glitchtext.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const heroVenom = document.getElementById('hero-venom-glitch');
@@ -1050,7 +1862,7 @@
         });
     </script>
 
-    <!-- WarpText Interactive Fluid Glass Refraction for Headings & Descriptions -->
+    <!-- WarpText Interactive Fluid Glass Refraction (Desktop only, lazy per section) -->
     <script type="module">
         import { initWarpText } from './warptext.js';
 
@@ -1073,104 +1885,81 @@
             singleLine: true
         };
 
-        const baseDescConfig = {
-            warpStrength: 0.12,
-            warpScale: 1.3,
-            speed: 0.8,
-            lens: "bulge",
-            pointerInfluence: 0.45,
-            pointerStrength: 0.45,
-            refraction: 0.018,
-            chromatic: 0.03,
-            idleDrift: 0.5,
-            ripple: true,
-            clickRipple: true,
-            intro: false,
-            fontFamily: 'Poppins, sans-serif',
-            fontWeight: '400',
-            multiline: true
-        };
+        const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+        const isSmall = window.innerWidth < 1024;
+        const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        function startWarp() {
-            // Strictly guard: Mobile touch screens have zero hover lensing and strict WebGL context limits
-            const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-            const isSmall = window.innerWidth < 1024;
-            const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            if (isTouch || isSmall || isMobileUA) {
-                return;
-            }
+        if (!isTouch && !isSmall && !isMobileUA) {
+            lazyInitSection('about', function() {
+                const aboutTitle = document.getElementById('warp-title-about');
+                if (aboutTitle) {
+                    initWarpText(aboutTitle, {
+                        ...baseHeadingConfig,
+                        text: "About Me",
+                        gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
+                        shadowColor: 'rgba(168, 85, 247, 0.45)'
+                    });
+                }
+                const iamVenomTitle = document.getElementById('warp-title-iamvenom');
+                if (iamVenomTitle) {
+                    initWarpText(iamVenomTitle, {
+                        ...baseHeadingConfig,
+                        text: "I am VENOM",
+                        singleLine: true,
+                        textAlign: 'left',
+                        fontWeight: '700',
+                        segments: [
+                            { text: "I am ", color: "#A855F7" },
+                            { text: "VENOM", color: "#FFFFFF" }
+                        ],
+                        shadowColor: 'rgba(168, 85, 247, 0.45)',
+                        shadowBlur: 15
+                    });
+                }
+            });
 
-            // Headings (Desktop only)
-            const aboutTitle = document.getElementById('warp-title-about');
-            if (aboutTitle) {
-                initWarpText(aboutTitle, {
-                    ...baseHeadingConfig,
-                    text: "About Me",
-                    gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
-                    shadowColor: 'rgba(168, 85, 247, 0.45)'
-                });
-            }
+            lazyInitSection('services', function() {
+                const servicesTitle = document.getElementById('warp-title-services');
+                if (servicesTitle) {
+                    initWarpText(servicesTitle, {
+                        ...baseHeadingConfig,
+                        text: "Services",
+                        gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
+                        shadowColor: 'rgba(168, 85, 247, 0.45)'
+                    });
+                }
+            });
 
-            // About Section Subtitle "I am VENOM"
-            const iamVenomTitle = document.getElementById('warp-title-iamvenom');
-            if (iamVenomTitle) {
-                initWarpText(iamVenomTitle, {
-                    ...baseHeadingConfig,
-                    text: "I am VENOM",
-                    singleLine: true,
-                    textAlign: 'left',
-                    fontWeight: '700',
-                    segments: [
-                        { text: "I am ", color: "#A855F7" },
-                        { text: "VENOM", color: "#FFFFFF" }
-                    ],
-                    shadowColor: 'rgba(168, 85, 247, 0.45)',
-                    shadowBlur: 15
-                });
-            }
+            lazyInitSection('projects', function() {
+                const projectsTitle = document.getElementById('warp-title-projects');
+                if (projectsTitle) {
+                    initWarpText(projectsTitle, {
+                        ...baseHeadingConfig,
+                        text: "Projects",
+                        gradientColors: ['#FFFFFF', '#BBF7D0', '#22C55E'],
+                        shadowColor: 'rgba(34, 197, 94, 0.45)'
+                    });
+                }
+            });
 
-            const servicesTitle = document.getElementById('warp-title-services');
-            if (servicesTitle) {
-                initWarpText(servicesTitle, {
-                    ...baseHeadingConfig,
-                    text: "Services",
-                    gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
-                    shadowColor: 'rgba(168, 85, 247, 0.45)'
-                });
-            }
-
-            const projectsTitle = document.getElementById('warp-title-projects');
-            if (projectsTitle) {
-                initWarpText(projectsTitle, {
-                    ...baseHeadingConfig,
-                    text: "Projects",
-                    gradientColors: ['#FFFFFF', '#BBF7D0', '#22C55E'],
-                    shadowColor: 'rgba(34, 197, 94, 0.45)'
-                });
-            }
-
-            const contactTitle = document.getElementById('warp-title-contact');
-            if (contactTitle) {
-                initWarpText(contactTitle, {
-                    ...baseHeadingConfig,
-                    text: "Get In Touch",
-                    gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
-                    shadowColor: 'rgba(168, 85, 247, 0.45)'
-                });
-            }
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', startWarp);
-        } else {
-            startWarp();
+            lazyInitSection('contact', function() {
+                const contactTitle = document.getElementById('warp-title-contact');
+                if (contactTitle) {
+                    initWarpText(contactTitle, {
+                        ...baseHeadingConfig,
+                        text: "Get In Touch",
+                        gradientColors: ['#FFFFFF', '#E9D5FF', '#A855F7'],
+                        shadowColor: 'rgba(168, 85, 247, 0.45)'
+                    });
+                }
+            });
         }
     </script>
 
-    <!-- LaserFlow Light Effect for Contact Form Surface -->
-    <script src="laserflow.js"></script>
+    <!-- LaserFlow Light Effect for Contact Form Surface (Lazy) -->
+    <script src="laserflow.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        lazyInitSection('contact', function() {
             const container = document.getElementById('contact-laserflow');
             const targetSurface = document.getElementById('contact-form-card');
             if (container && targetSurface && window.LaserFlow) {

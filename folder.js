@@ -276,7 +276,7 @@
             <div class="folder-project-icon" style="border: 2px solid ${item.accentColor || '#A855F7'}; background: ${item.accentColor || '#A855F7'}15;">
               ${item.iconHtml || '<i class="fas fa-layer-group text-primary"></i>'}
             </div>
-            <h4 class="folder-project-title">${item.title}</h4>
+            <h3 class="folder-project-title">${item.title}</h3>
             <div class="folder-project-rating">
               <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
