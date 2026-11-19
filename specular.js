@@ -560,7 +560,7 @@ void main() {
         lineColor = btn.style.backgroundColor || btn.style.background;
       } else if (card.innerHTML.includes('#22C55E') || card.innerHTML.includes('AirBeats')) {
         lineColor = '#86EFAC';
-      } else if (card.innerHTML.includes('#6366F1') || card.innerHTML.includes('VectorForge')) {
+      } else if (card.innerHTML.includes('#6366F1') || card.innerHTML.includes('Vectova')) {
         lineColor = '#A5B4FC';
       } else if (card.innerHTML.includes('#A855F7') || card.innerHTML.includes('ChatsApp')) {
         lineColor = '#D8B4FE';
